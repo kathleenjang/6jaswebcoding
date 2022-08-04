@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ko">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Chapter 05-01 - jQuery 최고의 교과서</title>
+<link rel="stylesheet" href="./css/normalize.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="./js/vendor/modernizr.custom.min.js"></script> -->
+<!-- <script src="./js/vendor/jquery-1.10.2.min.js"></script> -->
+<!-- <script src="./js/main.js"></script> -->
+
+<style>
+	.slideshow {
+    overflow: hidden;
+    position: relative;
+    min-width: 960px;
+    height: 465px;
+}
+.slideshow img {
+    display: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -800px;
+}
+
+/* JavsScript 비활성화 시 */
+.no-js .slideshow img:first-child {
+    display: inline;
+}
+</style>
+</head>
+<body>
+
+<header class="hero-header">
+    <div class="inner">
+        <div class="slideshow">
+            <img src="./img/slide-1.jpg" alt="" width="1600" height="465">
+            <img src="./img/slide-2.jpg" alt="" width="1600" height="465">
+            <img src="./img/slide-3.jpg" alt="" width="1600" height="465">
+            <img src="./img/slide-4.jpg" alt="" width="1600" height="465">
+        </div>
+    </div>
+</header>
+<script>
+    $(function(){
+        $(".slideshow").each(function(){ 
+            var $slides = $(this).find("img"), // 모든 슬라이드
+                slideCount = $slides.length, // 슬라이드 갯수
+                currentIndex = 0; //현재 슬라이드를 나태내는 인덱스 번호
+            
+            $slides.eq(currentIndex).fadeIn();
+
+            setInterval(showNextSlide, 7500); // 함수를 끌어와서 7.5초 간격으로 실행해라
+
+            function showNextSlide() {
+                var nextIndex = (currentIndex + 1) % slideCount; // 다음 표시할 슬라이드의 인덱스 (만약 마지막 슬라이드라면 처음으로 돌아가게 만드는 것)
+                
+                $slides.eq(currentIndex).fadeOut(); // 현재 나타난 슬라이드를 페이드아웃
+                $slides.eq(nextIndex).fadeIn(); // 다음 슬라이드를 페이드인 시키겠다는 의미
+
+                currentIndex = nextIndex; // 현재 슬라이드 인덱스를 업데이트 하겠다는 의미 
+            }
+        });
+    });
+    
+</script>
+</body>
+</html>
